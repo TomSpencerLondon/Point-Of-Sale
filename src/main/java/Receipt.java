@@ -5,6 +5,8 @@ public class Receipt {
   private final Printer printer;
   private final List<Item> items = new ArrayList<>();
 
+  private final Total total = new Total();
+
   public Receipt(Printer p) {
     this.printer = p;
   }
@@ -14,6 +16,11 @@ public class Receipt {
   }
 
   public void print() {
-    items.forEach(item -> item.print(printer));
+    items.forEach(item -> {
+      item.print(printer);
+      total.add(item.price());
+    });
+
+    total.print(printer);
   }
 }
